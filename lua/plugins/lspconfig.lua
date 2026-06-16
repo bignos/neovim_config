@@ -7,9 +7,6 @@ return {
 			-- LSP Support
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
-			{ "mfussenegger/nvim-dap" },
-			{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-			{ "jay-babu/mason-nvim-dap.nvim" },
 
 			-- Autocompletion
 			{ "hrsh7th/nvim-cmp" },
@@ -83,8 +80,6 @@ return {
 					end,
 				},
 			})
-
-			require("dapui").setup()
 
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			cmp.setup({
@@ -213,38 +208,6 @@ return {
 			vim.keymap.set("i", "<C-h>", function()
 				vim.lsp.buf.signature_help()
 			end, { desc = "Signature help" })
-
-			-- DAP
-			vim.keymap.set("n", "<leader>Db", function()
-				require("dap").toggle_breakpoint()
-			end, { desc = "Toggle Breakpoint" })
-			vim.keymap.set("n", "<leader>DB", function()
-				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-			end, { desc = "Set Conditional Breakpoint" })
-			vim.keymap.set("n", "<leader>Dc", function()
-				require("dap").continue()
-			end, { desc = "Continue" })
-			vim.keymap.set("n", "<leader>Dq", function()
-				require("dap").close()
-			end, { desc = "Close" })
-			vim.keymap.set("n", "<leader>Di", function()
-				require("dap").step_into()
-			end, { desc = "Step Into" })
-			vim.keymap.set("n", "<leader>DO", function()
-				require("dap").step_over()
-			end, { desc = "Step Over" })
-			vim.keymap.set("n", "<leader>Do", function()
-				require("dap").step_out()
-			end, { desc = "Step Out" })
-			vim.keymap.set("n", "<leader>Dr", function()
-				require("dap").repl.open()
-			end, { desc = "Repl" })
-			vim.keymap.set("n", "<leader>Dl", function()
-				require("dap").run_last()
-			end, { desc = "Run Last" })
-			vim.keymap.set("n", "<leader>Dt", function()
-				require("dapui").toggle()
-			end, { desc = "Toggle UI" })
 		end,
 	},
 }
