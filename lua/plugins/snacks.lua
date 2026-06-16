@@ -102,8 +102,8 @@ return {
 		},
 
 		keys = {
-            {
-				"<leader>\"",
+			{
+				'<leader>"',
 				function()
 					Snacks.picker.registers({
 						confirm = "put",
@@ -112,8 +112,8 @@ return {
 				desc = "Pick Registrers",
 				mode = "n",
 			},
-            {
-				"<C-\">",
+			{
+				'<C-">',
 				function()
 					Snacks.picker.registers({
 						confirm = "put",

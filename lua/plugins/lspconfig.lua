@@ -31,16 +31,59 @@ return {
 				cmp_lsp.default_capabilities()
 			)
 			require("fidget").setup({})
-			require("mason").setup()
+
+            require("mason").setup()
+
+			-- 1. On définit les configurations spécifiques pour nos serveurs Python
+			-- Avec la nouvelle API, on passe par vim.lsp.config
+			if vim.lsp.config then
+				-- Configuration moderne pour Ruff
+				vim.lsp.config("ruff", {
+					init_options = {
+						settings = {
+							format = { enable = false }, -- Black s'occupe du format
+						},
+					},
+				})
+
+				-- Configuration moderne pour Pylsp
+				vim.lsp.config("pylsp", {
+					settings = {
+						pylsp = {
+							plugins = {
+								pyflakes = { enabled = false },
+								mccabe = { enabled = false },
+								pycodestyle = { enabled = false },
+								flake8 = { enabled = false },
+								yapf = { enabled = false },
+								autopep8 = { enabled = false },
+								rope_completion = { enabled = true },
+								rope_autoimport = { enabled = true },
+							},
+						},
+					},
+				})
+			else
+				-- Fallback pour la compatibilité si ta version de Neovim n'a pas encore vim.lsp.config
+				local configs = require("lspconfig.configs")
+				if configs.ruff then configs.ruff.setup = function() end end
+				if configs.pylsp then configs.pylsp.setup = function() end end
+			end
+
+			-- 2. On lance mason-lspconfig avec le nouveau mécanisme de chargement automatique
 			require("mason-lspconfig").setup({
 				handlers = {
 					function(server_name)
-						require("lspconfig")[server_name].setup({
-							capabilities = capabilities,
-						})
+						-- La méthode moderne et recommandée par nvim-lspconfig pour appliquer les capabilities
+						local config = vim.lsp.config and vim.lsp.config[server_name] or {}
+						config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+						
+						-- On attache proprement le serveur
+						require("lspconfig")[server_name].setup(config)
 					end,
 				},
 			})
+
 			require("dapui").setup()
 
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -154,6 +197,13 @@ return {
 			vim.keymap.set("n", "<leader>CA", function()
 				vim.lsp.buf.code_action()
 			end, { desc = "Code Action" })
+            vim.keymap.set({ "n", "x" }, "<leader>R", function()
+				vim.lsp.buf.code_action({
+					context = {
+						only = { "refactor" },
+					},
+				})
+			end, { desc = "LSP Refactor Actions" })
 			vim.keymap.set("n", "<leader>Cr", function()
 				vim.lsp.buf.references()
 			end, { desc = "References" })
