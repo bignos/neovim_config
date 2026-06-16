@@ -12,6 +12,7 @@ return {
 					spelling = {
 						enabled = true,
 					},
+                    registers = true,
 				},
 				win = {
 					border = "single",

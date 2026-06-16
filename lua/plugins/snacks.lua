@@ -102,6 +102,26 @@ return {
 		},
 
 		keys = {
+            {
+				"<leader>\"",
+				function()
+					Snacks.picker.registers({
+						confirm = "put",
+					})
+				end,
+				desc = "Pick Registrers",
+				mode = "n",
+			},
+            {
+				"<C-\">",
+				function()
+					Snacks.picker.registers({
+						confirm = "put",
+					})
+				end,
+				desc = "Pick Registers (Insert Mode)",
+				mode = "i",
+			},
 			{
 				"<leader>e",
 				function()
