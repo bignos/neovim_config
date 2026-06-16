@@ -36,6 +36,9 @@ return {
             -- [ Basics ]
             require("mini.basics").setup()
 
+            -- [ Pairs ]
+            require("mini.pairs").setup()
+
             -- [ Git ]
             require('mini.git').setup()
 

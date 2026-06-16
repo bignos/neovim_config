@@ -2,8 +2,8 @@
 vim.keymap.set("n", "<leader>Ul", vim.cmd.Lazy, { desc = "Lazy" })
 
 -- Buffers
-vim.keymap.set("n", "H", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "L", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+vim.keymap.set("n", "H", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+vim.keymap.set("n", "L", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 -- Move line in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line down" })

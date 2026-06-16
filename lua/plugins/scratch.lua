@@ -1,6 +1,7 @@
 return {
     {
         "cenk1cenk2/scratch.nvim",
+        enabled = true,
         keys = {
             {
                 "<leader><",
