@@ -1,37 +1,16 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false, -- last release is way too old and doesn't work on Windows
+        version = false,
         build = ":TSUpdate",
         ---@type TSConfig
         opts = {
             highlight = { enable = true },
             indent = { enable = true },
+            additional_vim_regex_highlighting = false,
             context_commentstring = { enable = true, enable_autocmd = false },
-            ensure_installed = {
-                "bash",
-                "c",
-                "vimdoc",
-                "html",
-                "javascript",
-                "json",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "python",
-                "query",
-                "regex",
-                "ruby",
-                "rust",
-                "tsx",
-                "typescript",
-                "vim",
-                "yaml",
-            },
+            ensure_installed = {},
             auto_install = true,
-            autotag = {
-                enable = true,
-            }
         },
         ---@param opts TSConfig
         config = function(_, opts)
