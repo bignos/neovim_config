@@ -1,3 +1,18 @@
+local function dedupe_lsp_location(item, ctx)
+	ctx.meta.seen_lsp_locations = ctx.meta.seen_lsp_locations or {}
+
+	local file = item.file and vim.fs.normalize(item.file) or ""
+	local line = item.pos and item.pos[1] or 0
+	local key = string.format("%s:%d", file, line)
+
+	if ctx.meta.seen_lsp_locations[key] then
+		return false
+	end
+
+	ctx.meta.seen_lsp_locations[key] = true
+	return item
+end
+
 return {
 	{
 		"folke/snacks.nvim",
@@ -94,7 +109,26 @@ return {
 			},
 			input = { enabled = true, expand = false },
 			notifier = { enabled = true },
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+				sources = {
+					lsp_declarations = {
+						transform = dedupe_lsp_location,
+					},
+					lsp_definitions = {
+						transform = dedupe_lsp_location,
+					},
+					lsp_implementations = {
+						transform = dedupe_lsp_location,
+					},
+					lsp_references = {
+						transform = dedupe_lsp_location,
+					},
+					lsp_type_definitions = {
+						transform = dedupe_lsp_location,
+					},
+				},
+			},
 			quickfile = { enabled = true },
 			rename = { enabled = true },
 			scroll = { enabled = true },
