@@ -1,6 +1,7 @@
 return {
 	{
 		"0xstepit/flow.nvim",
+        enabled = false,
 		lazy = false,
 		priority = 1000,
 		opts = {},

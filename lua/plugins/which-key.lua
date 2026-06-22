@@ -32,6 +32,7 @@ return {
                 { "<leader>n", group = ">Neorg" },
 				{ "<leader>R", group = ">Refactor" },
 				{ "<leader>Y", group = ">Display" },
+				{ "<leader>O", group = ">OpenCode" },
                 { "g?", group = ">DebugPrint" },
 			})
 		end,

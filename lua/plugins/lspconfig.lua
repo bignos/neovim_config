@@ -56,7 +56,11 @@ return {
 								autopep8 = { enabled = false },
 								rope_completion = { enabled = true },
 								rope_autoimport = { enabled = true },
+                                rope_plugin = { enabled = true },
 							},
+                            rope = {
+                                ropeFolder = { nil }
+                            }
 						},
 					},
 				})
