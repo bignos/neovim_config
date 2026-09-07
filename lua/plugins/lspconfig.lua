@@ -165,6 +165,16 @@ return {
 				},
 			})
 
+			-- Affichage auto du diagnostic au survol curseur (scope local à lspconfig.lua)
+			vim.o.updatetime = 1500
+			local diag_float_group = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+			vim.api.nvim_create_autocmd({ "CursorHold" }, {
+				group = diag_float_group,
+				callback = function()
+					vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+				end,
+			})
+
 			vim.keymap.set("n", "<leader>Um", function()
 				vim.cmd("Mason")
 			end, { desc = "Mason" })
