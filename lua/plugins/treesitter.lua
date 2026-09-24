@@ -1,20 +1,19 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false,
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
-        ---@type TSConfig
-        opts = {
-            highlight = { enable = true },
-            indent = { enable = true },
-            additional_vim_regex_highlighting = false,
-            context_commentstring = { enable = true, enable_autocmd = false },
-            ensure_installed = {},
-            auto_install = true,
-        },
-        ---@param opts TSConfig
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+
+        config = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    if pcall(vim.treesitter.start) then
+                        vim.bo.indentexpr =
+                            "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end,
+            })
         end,
-    }
+    },
 }

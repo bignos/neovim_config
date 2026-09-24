@@ -1,22 +1,26 @@
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+vim.api.nvim_create_autocmd("User", {
+	pattern = "TSUpdate",
+	callback = function()
+		local parsers = require("nvim-treesitter.parsers")
 
-parser_config.asciidoc = {
-    install_info = {
-        url = "https://github.com/cathaysia/tree-sitter-asciidoc",
-        branch = "master",
-        location = "tree-sitter-asciidoc",
-        files = { "src/parser.c", "src/scanner.c" },
-        queries = "queries/asciidoc/",
-        requires = { "asciidoc_inline" }
-    }
-}
+		parsers.asciidoc = {
+			install_info = {
+				url = "https://github.com/cathaysia/tree-sitter-asciidoc",
+				branch = "master",
+				location = "tree-sitter-asciidoc",
+				queries = "queries/asciidoc/",
+			},
+			tier = 2,
+		}
 
-parser_config.asciidoc_inline = {
-    install_info = {
-        url = "https://github.com/cathaysia/tree-sitter-asciidoc",
-        branch = "master",
-        location = "tree-sitter-asciidoc_inline",
-        files = { "src/parser.c", "src/scanner.c" },
-        queries = "queries/asciidoc_inline/"
-    }
-}
+		parsers.asciidoc_inline = {
+			install_info = {
+				url = "https://github.com/cathaysia/tree-sitter-asciidoc",
+				branch = "master",
+				location = "tree-sitter-asciidoc_inline",
+				queries = "queries/asciidoc_inline/",
+			},
+			tier = 2,
+		}
+	end,
+})
