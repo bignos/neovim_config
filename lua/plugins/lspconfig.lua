@@ -29,7 +29,7 @@ return {
 			)
 			require("fidget").setup({})
 
-            require("mason").setup()
+			require("mason").setup()
 
 			-- 1. On définit les configurations spécifiques pour nos serveurs Python
 			-- Avec la nouvelle API, on passe par vim.lsp.config
@@ -56,34 +56,40 @@ return {
 								autopep8 = { enabled = false },
 								rope_completion = { enabled = true },
 								rope_autoimport = { enabled = true },
-                                rope_plugin = { enabled = true },
+								rope_plugin = { enabled = true },
 							},
-                            rope = {
-                                ropeFolder = { nil }
-                            }
+							rope = {
+								ropeFolder = { nil },
+							},
 						},
 					},
 				})
+
+				-- Configuration Externe ruby-lsp
+				vim.lsp.config("ruby_lsp", {
+					cmd = { "bundle", "exec", "ruby-lsp" },
+					root_markers = { "Gemfile", ".git" },
+				})
+
+                vim.lsp.enable("ruby_lsp")
 			else
 				-- Fallback pour la compatibilité si ta version de Neovim n'a pas encore vim.lsp.config
 				local configs = require("lspconfig.configs")
-				if configs.ruff then configs.ruff.setup = function() end end
-				if configs.pylsp then configs.pylsp.setup = function() end end
+				if configs.ruff then
+					configs.ruff.setup = function() end
+				end
+				if configs.pylsp then
+					configs.pylsp.setup = function() end
+				end
 			end
 
-			-- 2. On lance mason-lspconfig avec le nouveau mécanisme de chargement automatique
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						-- La méthode moderne et recommandée par nvim-lspconfig pour appliquer les capabilities
-						local config = vim.lsp.config and vim.lsp.config[server_name] or {}
-						config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-						
-						-- On attache proprement le serveur
-						require("lspconfig")[server_name].setup(config)
-					end,
-				},
+			-- 2. Capabilities communes à tous les serveurs (API v2 : handlers n'existe plus)
+			vim.lsp.config("*", {
+				capabilities = capabilities,
 			})
+
+			-- 3. On lance mason-lspconfig, qui active automatiquement tout serveur installé via Mason
+			require("mason-lspconfig").setup()
 
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			cmp.setup({
@@ -206,7 +212,7 @@ return {
 			vim.keymap.set("n", "<leader>CA", function()
 				vim.lsp.buf.code_action()
 			end, { desc = "Code Action" })
-            vim.keymap.set({ "n", "x" }, "<leader>R", function()
+			vim.keymap.set({ "n", "x" }, "<leader>R", function()
 				vim.lsp.buf.code_action({
 					context = {
 						only = { "refactor" },

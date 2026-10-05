@@ -16,9 +16,17 @@ return {
 					markdown = { "prettier" },
 					eruby = { "erb_format" },
 					lua = { "stylua" },
-					ruby = { "rufo" },
+					ruby = { "syntax_tree" },
 					python = { "black" },
 					go = { "gofumpt", "goimports" },
+				},
+
+                formatters = {
+					syntax_tree = {
+						append_args = {
+							"--plugins=plugin/single_quotes",
+						},
+					},
 				},
 			})
 		end,
@@ -28,7 +36,7 @@ return {
 				function()
 					require("conform").format({
 						async = true,
-						lsp_fallback = true,
+						lsp_format = "fallback",
 					})
 				end,
 				desc = "Format buffer",
