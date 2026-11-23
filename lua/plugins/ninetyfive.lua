@@ -10,8 +10,8 @@ return {
                 mappings = {
                     accept = "<C-g>",
                     reject = "<C-x>",
-                    accept_word = "",
-                    accept_line = "",
+                    accept_word = false,
+                    accept_line = false,
                 },
 
                 indexing = {
@@ -22,7 +22,7 @@ return {
         keys = {
             {
                 "<leader>Ys",
-                "<cmd>NinetyFiveToggle<cr>",
+                "<cmd>NinetyFive<cr>",
                 desc = "Toggle NinetyFive",
             },
         },

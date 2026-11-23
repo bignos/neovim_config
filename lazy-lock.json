@@ -49,7 +49,6 @@
   "scratch.nvim": { "branch": "main", "commit": "3e3d2ad0d7f565bc794d9d3ad40e92509802ecad" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "sniprun": { "branch": "master", "commit": "647995168a0682b359dfbf49bd3b0e8b9f2026dc" },
-  "supermaven-nvim": { "branch": "main", "commit": "07d20fce48a5629686aefb0a7cd4b25e33947d50" },
   "tabular": { "branch": "master", "commit": "12437cd1b53488e24936ec4b091c9324cafee311" },
   "tree-sitter-asciidoc": { "branch": "master", "commit": "ade998931aeac0a10ca592b421cdb1f2f088f6c9" },
   "tree-sitter-norg": { "branch": "main", "commit": "d7edfaf89198aab652c7a1f0f818196efedaccfb" },
